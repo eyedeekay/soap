@@ -23,7 +23,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	log.Printf("Multiplayer Unciv Server listening on: %s", ln.Addr().String())
+	log.Printf("Multiplayer Unciv Server listening on:\n\t%s", ln.Addr().String())
 	defer ln.Close()
 	fs := &unciv.FrontServer{
 		PageTitle:   "Unciv Server",
@@ -41,7 +41,7 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		log.Printf("Unciv Server sharing server: %s", fsln.Addr().String())
+		log.Printf("Unciv Server sharing server:\n\t%s", fsln.Addr().String())
 		defer fsln.Close()
 		if err := http.Serve(fsln, fs); err != nil {
 			panic(err)
