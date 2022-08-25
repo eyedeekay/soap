@@ -75,6 +75,14 @@ func stat(path, filename string) (os.FileInfo, error) {
 	return os.Stat(filename)
 }
 
+func pathIsFiles(r *http.Request) bool {
+	path := strings.TrimLeft(r.URL.Path, "/")
+	if strings.HasPrefix(path, "files") {
+		return true
+	}
+	return false
+}
+
 type UncivServerInterface interface {
 	Alive(w http.ResponseWriter, r *http.Request) error
 	Put(w http.ResponseWriter, r *http.Request) error
@@ -121,17 +129,6 @@ func (u *UncivServer) Alive(w http.ResponseWriter, r *http.Request) (err error) 
 	return err
 }
 
-/*  put("/files/{fileName}") {
-    val fileName = call.parameters["fileName"] ?: throw Exception("No fileName!")
-    log.info("Receiving file: ${fileName}")
-    val file = File(fileFolderName, fileName)
-    withContext(Dispatchers.IO) {
-        file.outputStream().use {
-            call.request.receiveChannel().toInputStream().copyTo(it)
-        }
-    }
-    call.respond(HttpStatusCode.OK)
-}*/
 func (u *UncivServer) Put(w http.ResponseWriter, r *http.Request) (err error) {
 	//get the "fileName" parameter
 	filename, err := ReplaceInvalidChars(fileName(r))
@@ -154,18 +151,6 @@ func (u *UncivServer) Put(w http.ResponseWriter, r *http.Request) (err error) {
 	return
 }
 
-/*  get("/files/{fileName}") {
-	val fileName = call.parameters["fileName"] ?: throw Exception("No fileName!")
-	log.info("File requested: $fileName")
-	val file = File(fileFolderName, fileName)
-	if (!file.exists()) {
-		log.info("File $fileName not found")
-		call.respond(HttpStatusCode.NotFound, "File does not exist")
-		return@get
-	}
-	val fileText = withContext(Dispatchers.IO) { file.readText() }
-	call.respondText(fileText)
-}*/
 func (u *UncivServer) Get(w http.ResponseWriter, r *http.Request) (err error) {
 	//get the "fileName" parameter
 	filename, err := ReplaceInvalidChars(fileName(r))
@@ -190,16 +175,6 @@ func (u *UncivServer) Get(w http.ResponseWriter, r *http.Request) (err error) {
 	return
 }
 
-/*  delete("/files/{fileName}") {
-    val fileName = call.parameters["fileName"] ?: throw Exception("No fileName!")
-    log.info("Deleting file: $fileName")
-    val file = File(fileFolderName, fileName)
-    if (!file.exists()) {
-        call.respond(HttpStatusCode.NotFound, "File does not exist")
-        return@delete
-    }
-    file.delete()
-}*/
 func (u *UncivServer) Delete(w http.ResponseWriter, r *http.Request) (err error) {
 	//get the "fileName" parameter
 	filename, err := ReplaceInvalidChars(fileName(r))
@@ -235,14 +210,6 @@ func (u *UncivServer) Files(w http.ResponseWriter, r *http.Request) (err error) 
 		return
 	}
 	return fmt.Errorf("Method error: method not found")
-}
-
-func pathIsFiles(r *http.Request) bool {
-	path := strings.TrimLeft(r.URL.Path, "/")
-	if strings.HasPrefix(path, "files") {
-		return true
-	}
-	return false
 }
 
 func (u *UncivServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
