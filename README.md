@@ -15,6 +15,8 @@ go build
 ./soap
 ```
 
+You can obtain the URL from the terminal output, or by visiting [http://127.0.0.1:7669](http://127.0.0.1:7669)
+to reach the information page which helps you share the server.
 
 Client Configuration
 --------------------
