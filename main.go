@@ -46,7 +46,7 @@ func main() {
 	}()
 
 	go func() {
-		fsln, err := net.Listen("127.0.0.1", "7777")
+		fsln, err := net.Listen("tcp", "127.0.0.1:7699")
 		if err != nil {
 			panic(err)
 		}
