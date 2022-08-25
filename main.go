@@ -9,12 +9,13 @@ import (
 	unciv "./lib"
 
 	onramp "github.com/eyedeekay/onramp"
+	sam3 "github.com/eyedeekay/sam3"
 )
 
 func main() {
 	ucs := &unciv.UncivServer{}
 	//listener
-	garlic1, err := onramp.NewGarlic("unciv", "127.0.0.1:7656", nil)
+	garlic1, err := onramp.NewGarlic("unciv", "127.0.0.1:7656", sam3.Options_Wide)
 	if err != nil {
 		panic(err)
 	}
@@ -33,7 +34,7 @@ func main() {
 		URL:         ln.Addr().String(),
 	}
 	go func() {
-		garlic2, err := onramp.NewGarlic("unciv-display", "127.0.0.1:7656", nil)
+		garlic2, err := onramp.NewGarlic("unciv-display", "127.0.0.1:7656", sam3.Options_Wide)
 		if err != nil {
 			panic(err)
 		}
