@@ -2,6 +2,7 @@ package main
 
 //import "github.con/eyedeekay/soap/lib"
 import (
+	"net"
 	"net/http"
 
 	unciv "./lib"
@@ -22,6 +23,13 @@ func main() {
 		panic(err)
 	}
 	defer ln.Close()
+	fs := &unciv.FrontServer{
+		PageTitle:   "Unciv Server",
+		ServerName:  "Default Server",
+		Description: "TODO",
+		TOS:         "TODO",
+		URL:         ln.Addr().String(),
+	}
 	go func() {
 		garlic2, err := onramp.NewGarlic("unciv-display", "127.0.0.1:7656", nil)
 		if err != nil {
@@ -32,13 +40,17 @@ func main() {
 			panic(err)
 		}
 		defer fsln.Close()
-		fs := &unciv.FrontServer{
-			PageTitle:   "Unciv Server",
-			ServerName:  "Default Server",
-			Description: "TODO",
-			TOS:         "TODO",
-			URL:         ln.Addr().String(),
+		if err := http.Serve(fsln, fs); err != nil {
+			panic(err)
 		}
+	}()
+
+	go func() {
+		fsln, err := net.Listen("127.0.0.1", "7777")
+		if err != nil {
+			panic(err)
+		}
+		defer fsln.Close()
 		if err := http.Serve(fsln, fs); err != nil {
 			panic(err)
 		}
