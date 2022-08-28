@@ -4,6 +4,8 @@ Go implementation of an Unciv multiplayer server which operates on hidden servic
 It uses the SAMv3 API provided by I2P to set up an efficient, secure Unciv server
 for you and your friends.
 
+STATUS: This project is maintained. It is feature-complete as far as I know.
+
 Usage
 -----
 
