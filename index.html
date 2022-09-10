@@ -39,9 +39,6 @@
       /
     </a>
     <h1>
-      <a href="#soap" rel="nofollow">
-        <span></span>
-      </a>
       soap
     </h1>
     <p>
@@ -53,41 +50,38 @@
       STATUS: This project is maintained. It is feature-complete as far as I know.
     </p>
     <h2>
-      <a href="#usage" rel="nofollow">
-        <span></span>
-      </a>
       Usage
     </h2>
     <p>
-      Simply compile and run. More options might be added in the future but for now it&#39;s
+      Simply compile and run. More options might be added in the future but for now it&rsquo;s
       no-frills.
     </p>
-    <div>
-      <pre>go build
+    <pre><code class="language-sh">go build
 ./soap
-</pre>
-    </div>
+</code></pre>
     <p>
       You can obtain the URL from the terminal output, or by visiting
-      <a href="http://127.0.0.1:7669" rel="nofollow">
-        http://127.0.0.1:7669
+      <a href="http://127.0.0.1:7699">
+        http://127.0.0.1:7699
       </a>
       to reach the information page which helps you share the server.
     </p>
+    <p>
+      I run it with docker using the script
+      <code>
+        ./docker.sh
+      </code>
+      in this repo.
+    </p>
     <h2>
-      <a href="#client-configuration" rel="nofollow">
-        <span></span>
-      </a>
       Client Configuration
     </h2>
     <p>
       This server is intended for use with regular UnCiv. In order to launch UnCiv with
       I2P as an HTTP Proxy, use the following comand:
     </p>
-    <div>
-      <pre>java -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=4444 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=4444 -jar Unciv.jar
-</pre>
-    </div>
+    <pre><code class="language-sh">java -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=4444 -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=4444 -jar Unciv.jar
+</code></pre>
     <div id="sourcecode">
       <span id="sourcehead">
         <strong>
