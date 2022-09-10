@@ -1,12 +1,11 @@
 package main
 
-//import "github.con/eyedeekay/soap/lib"
 import (
 	"log"
 	"net"
 	"net/http"
 
-	unciv "./lib"
+	unciv "github.com/eyedeekay/soap/lib"
 
 	onramp "github.com/eyedeekay/onramp"
 	sam3 "github.com/eyedeekay/sam3"
